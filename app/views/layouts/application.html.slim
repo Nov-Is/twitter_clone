@@ -9,4 +9,6 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   body
+    - flash.each do |type, message|
+      = content_tag(:div, message, class: "alert alert-#{type == "notice" ? "success" : "danger"}")
     = yield

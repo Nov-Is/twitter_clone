@@ -51,6 +51,7 @@ gem 'bootsnap', require: false
 gem 'sassc-rails'
 
 gem 'devise'
+gem 'dotenv-rails'
 gem 'omniauth'
 gem 'slim-rails'
 
@@ -75,6 +76,7 @@ group :development do
   gem 'web-console'
 
   gem 'html2slim-ruby3'
+  gem 'letter_opener_web'
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 

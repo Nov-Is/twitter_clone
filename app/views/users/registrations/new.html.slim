@@ -1,24 +1,41 @@
-h2
-  | Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = render "users/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    br
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      em
-        | (
-        = @minimum_password_length
-        |  characters minimum)
-    br
-    = f.password_field :password, autocomplete: "new-password"
-  .field
-    = f.label :password_confirmation
-    br
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .actions
-    = f.submit "Sign up"
-= render "users/shared/links"
+.text-white.d-flex.align-items-center.vh-100(style="background-color: #333333;")
+  .container.bg-dark.rounded-3 style="width: 60%;"
+    .container.w-75.py-3
+      h2
+        | アカウントを作成
+      = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = render "users/shared/error_messages", resource: resource
+        .container.rounded-1.my-2 style="border: 1px solid rgb(62 65 68);"
+          .field
+            = f.label :email, style: "color: rgb(29 155 240)"
+            br
+            = f.email_field :email, autofocus: true, autocomplete: "email", class: "border-0 mb-2 bg-dark text-light w-100", style: "outline: none; caret-color: white;"
+        .container.rounded-1.my-2 style="border: 1px solid rgb(62 65 68);"
+          .field
+            = f.label :phone_number, style: "color: rgb(29 155 240)"
+            br
+            = f.text_field "phone_number", autocomplete: "tel", class: "border-0 mb-2 bg-dark text-light w-100", style: "outline: none; caret-color: white;"
+        .container.rounded-1.my-2 style="border: 1px solid rgb(62 65 68);"
+          .field
+            = f.label :birth_date, style: "color: rgb(29 155 240)", class: "my-1"
+            br
+            = f.date_select "birth_date", {start_year: (Time.now.year), end_year: (Time.now.year - 120), include_blank: true}, class: "p-2 rounded-1 bg-dark text-light"
+        .container.rounded-1.my-2 style="border: 1px solid rgb(62 65 68);"
+          .field
+            = f.label :password, style: "color: rgb(29 155 240)"
+            - if @minimum_password_length
+              em
+                | (
+                = @minimum_password_length
+                | 文字以上)
+            br
+            = f.password_field :password, autocomplete: "new-password", class: "border-0 mb-2 bg-dark text-light", style: "outline: none; caret-color: white;"
+        .container.rounded-1.my-2 style="border: 1px solid rgb(62 65 68);"
+          .field
+            = f.label :password_confirmation, style: "color: rgb(29 155 240)"
+            br
+            = f.password_field :password_confirmation, autocomplete: "new-password", class: "border-0 mb-2 bg-dark text-light", style: "outline: none; caret-color: white;"
+        .container.my-2
+          .actions
+            = f.submit "#{I18n.t("helpers.submit.create")}", style: "background-color: rgb(29 155 240)", class: "text-white fw-bold px-5 py-2 rounded-5 border-0"
+      = render "users/shared/links"
