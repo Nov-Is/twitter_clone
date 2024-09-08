@@ -8,7 +8,21 @@ html
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
-  body
+  body.d-flex.flex-column.vh-100.text-white(style="background-color: #333333;")
+    nav.navbar.bg-body-tertiary.mx-1
+      .container
+        = link_to root_path, class: "navbar-brand"
+          = image_tag("logo-white.png", size: "25x25")
+        - if user_signed_in?
+          ul.nav.justify-content-end.nav-pills
+            li.nav-item.mx-2
+              = link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-outline-light"
+        - else
+          ul.nav.justify-content-end.nav-pills
+            li.nav-item.mx-2
+              = link_to "ログイン", new_user_session_path, class: "btn btn-outline-light", role: "button"
+            li.nav-item
+              = link_to "新規登録", new_user_registration_path, class: "btn btn-primary", role: "button"
     - flash.each do |type, message|
       = content_tag(:div, message, class: "alert alert-#{type == "notice" ? "success" : "danger"}")
     = yield
