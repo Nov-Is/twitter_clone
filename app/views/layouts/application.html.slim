@@ -2,12 +2,14 @@ doctype html
 html
   head
     title
-      | Myapp
+      | x-clone
     meta[name="viewport" content="width=device-width,initial-scale=1"]
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+    = favicon_link_tag("x-clone.ico")
+    link href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" rel="stylesheet"
   body.d-flex.flex-column.vh-100.text-white(style="background-color: #333333;")
     nav.navbar.bg-body-tertiary.mx-1
       .container
@@ -16,7 +18,7 @@ html
         - if user_signed_in?
           ul.nav.justify-content-end.nav-pills
             li.nav-item.mx-2
-              = link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-outline-light"
+              = link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-outline-light", role: "button"
         - else
           ul.nav.justify-content-end.nav-pills
             li.nav-item.mx-2

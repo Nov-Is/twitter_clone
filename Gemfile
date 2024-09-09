@@ -53,6 +53,8 @@ gem 'sassc-rails'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'omniauth'
+gem 'omniauth-github'
+gem 'omniauth-rails_csrf_protection'
 gem 'slim-rails'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
@@ -77,6 +79,7 @@ group :development do
 
   gem 'html2slim-ruby3'
   gem 'letter_opener_web'
+  gem 'pry-byebug'
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
