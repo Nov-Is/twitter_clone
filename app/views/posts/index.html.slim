@@ -1,2 +1,141 @@
-h1 Posts#index
-p Find me in app/views/posts/index.html.slim
+.container-fluid
+  .row
+    .col-3.position-fixed.overflow-scroll(style="height: calc(100vh - 112px);")
+      ul.list-unstyled.fs-5.ms-4
+        li
+          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+            i.fa-solid.fa-house.fa-fw.me-3
+            | ホーム
+        li
+          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+            i.fa-solid.fa-hashtag.fa-fw.me-3
+            | 話題を検索
+        li
+          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+            i.fa-regular.fa-bell.fa-fw.me-3
+            | 通知
+        li
+          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+            i.fa-regular.fa-envelope.fa-fw.me-3
+            | メッセージ
+        li
+          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+            i.fa-regular.fa-bookmark.fa-fw.me-3
+            | ブックマーク
+        li
+          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+            i.fa-brands.fa-square-twitter.fa-fw.me-3
+            | Twitter Blue
+        li
+          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+            i.fa-regular.fa-user.fa-fw.me-3
+            | プロフィール
+        li
+          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+            i.fa-solid.fa-ellipsis.fa-fw.me-3
+            | もっと見る
+        li
+            = link_to "ツイートする", new_user_session_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-1", role: "button", style: "background-color: rgb(29 155 240);"
+        li.mt-3.pb-3
+            = image_tag("https://placehold.jp/40x40.png", size: "30x30", class: "rounded-circle me-3")
+            | name
+    .col-9.border-start.border-secondary.px-0(style="margin: 0 0 0 auto;")
+      .w-100
+        ul.list-group.list-group-horizontal.position-fixed.flex-row.me-1(style="width: calc(100vw - calc(100vw / 4));")
+          li.list-group-item.list-group-item-action.list-group-item-custom.text-center
+            = link_to "おすすめ", new_user_session_path, class: "btn px-5 fs-6 fw-bold text-white text-center", role: "button"
+          li.list-group-item.list-group-item-action.list-group-item-custom.text-center
+            = link_to "フォロー中", new_user_session_path, class: "btn px-5 fs-6 fw-bold text-white text-center", role: "button"
+      .container.px-0(style="margin: 56px 0 0 0;")
+        .container.d-flex.border-top.border-bottom.border-secondary.p-2
+          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
+          = form_with url: root_path, class: "w-100" do |f|  
+            .container.my-1
+              .field.w-75
+              = f.text_area :post, class: "border-0 text-light w-100 lh-sm", placeholder: "いまどうしてる？", style: "outline: none; caret-color: white; background-color: #333333; height: 40px; resize: none;"
+            .container.row.justify-content-between
+              .container.col-1.mx-0.d-flex.align-items-center
+                .field
+                  = f.label :image, style: "color: rgb(29 155 240);"
+                    i.fa-regular.fa-image.text-white
+                    = f.file_field :image, class: "btn text-light btn-custom me-5", style: "display: none;"
+              .actions.col-3
+                = f.submit "ポストする", style: "background-color: rgb(29 155 240);", class: "text-white fw-bold px-5 py-2 rounded-5 border-0"
+        .container.d-flex.border-top.border-bottom.border-secondary.p-2
+          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
+          .container
+            p.my-0.lh-sm name @test
+            p.mb-1 post text
+            = link_to root_path, class: "btn text-light btn-custom me-5" do
+              i.fa-regular.fa-comment
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-solid.fa-repeat
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-regular.fa-heart
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-regular.fa-bookmark
+        .container.d-flex.border-top.border-bottom.border-secondary.p-2
+          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
+          .container
+            p.my-0.lh-sm name @test
+            p.mb-1 post text
+            = link_to root_path, class: "btn text-light btn-custom me-5" do
+              i.fa-regular.fa-comment
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-solid.fa-repeat
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-regular.fa-heart
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-regular.fa-bookmark
+        .container.d-flex.border-top.border-bottom.border-secondary.p-2
+          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
+          .container
+            p.my-0.lh-sm name @test
+            p.mb-1 post text
+            = link_to root_path, class: "btn text-light btn-custom me-5" do
+              i.fa-regular.fa-comment
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-solid.fa-repeat
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-regular.fa-heart
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-regular.fa-bookmark
+        .container.d-flex.border-top.border-bottom.border-secondary.p-2
+          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
+          .container
+            p.my-0.lh-sm name @test
+            p.mb-1 post text
+            = link_to root_path, class: "btn text-light btn-custom me-5" do
+              i.fa-regular.fa-comment
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-solid.fa-repeat
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-regular.fa-heart
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-regular.fa-bookmark
+        .container.d-flex.border-top.border-bottom.border-secondary.p-2
+          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
+          .container
+            p.my-0.lh-sm name @test
+            p.mb-1 post text
+            = link_to root_path, class: "btn text-light btn-custom me-5" do
+              i.fa-regular.fa-comment
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-solid.fa-repeat
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-regular.fa-heart
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-regular.fa-bookmark
+        .container.d-flex.border-top.border-bottom.border-secondary.p-2
+          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
+          .container
+            p.my-0.lh-sm name @test
+            p.mb-1 post text
+            = link_to root_path, class: "btn text-light btn-custom me-5" do
+              i.fa-regular.fa-comment
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-solid.fa-repeat
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-regular.fa-heart
+            = link_to root_path, class: "btn text-light btn-custom mx-5" do
+              i.fa-regular.fa-bookmark

@@ -9,9 +9,9 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
     = favicon_link_tag("x-clone.ico")
-    link href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" rel="stylesheet"
-  body.d-flex.flex-column.vh-100.text-white(style="background-color: #333333;")
-    nav.navbar.bg-body-tertiary.mx-1
+    link href="https://use.fontawesome.com/releases/v6.6.0/css/all.css" rel="stylesheet"
+  body.d-flex.flex-column.vh-100.text-white(style="background-color: #333333; margin-top: 56px;")
+    nav.navbar.bg-body-tertiary.fixed-top.mx-1(style="background-color: #333333;")
       .container
         = link_to root_path, class: "navbar-brand"
           = image_tag("logo-white.png", size: "25x25")
@@ -26,5 +26,9 @@ html
             li.nav-item
               = link_to "新規登録", new_user_registration_path, class: "btn btn-primary", role: "button"
     - flash.each do |type, message|
-      = content_tag(:div, message, class: "alert alert-#{type == "notice" ? "success" : "danger"}")
-    = yield
+      = content_tag(:div, message, class: "fixed-top alert alert-#{type == "notice" ? "success" : "danger"}", style: "margin-top: 56px;")
+    - if flash[:notice]
+      .for-flash(style="margin-bottom: 56px;")
+      = yield
+    - else
+      = yield
