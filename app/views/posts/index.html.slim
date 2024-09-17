@@ -1,44 +1,6 @@
 .container-fluid
   .row
-    .col-3.position-fixed.overflow-scroll(style="height: calc(100vh - 112px);")
-      ul.list-unstyled.fs-5.ms-4
-        li
-          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
-            i.fa-solid.fa-house.fa-fw.me-3
-            | ホーム
-        li
-          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
-            i.fa-solid.fa-hashtag.fa-fw.me-3
-            | 話題を検索
-        li
-          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
-            i.fa-regular.fa-bell.fa-fw.me-3
-            | 通知
-        li
-          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
-            i.fa-regular.fa-envelope.fa-fw.me-3
-            | メッセージ
-        li
-          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
-            i.fa-regular.fa-bookmark.fa-fw.me-3
-            | ブックマーク
-        li
-          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
-            i.fa-brands.fa-square-twitter.fa-fw.me-3
-            | Twitter Blue
-        li
-          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
-            i.fa-regular.fa-user.fa-fw.me-3
-            | プロフィール
-        li
-          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
-            i.fa-solid.fa-ellipsis.fa-fw.me-3
-            | もっと見る
-        li
-            = link_to "ツイートする", new_user_session_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-1", role: "button", style: "background-color: rgb(29 155 240);"
-        li.mt-3.pb-3
-            = image_tag("https://placehold.jp/40x40.png", size: "30x30", class: "rounded-circle me-3")
-            | name
+    = render "shared/sidebar"
     .col-9.border-start.border-secondary.px-0(style="margin: 0 0 0 auto;")
       .w-100
         ul.list-group.list-group-horizontal.position-fixed.flex-row.me-1(style="width: calc(100vw - calc(100vw / 4));")
