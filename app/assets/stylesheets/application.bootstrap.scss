@@ -1,2 +1,14 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+.btn-custom:hover {
+  background-color: black;
+}
+
+.list-group-item-custom {
+  background-color: #333333;
+
+  &:hover{
+    background-color: black;
+  }
+}
