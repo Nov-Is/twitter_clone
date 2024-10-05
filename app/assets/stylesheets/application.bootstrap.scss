@@ -9,6 +9,12 @@
   background-color: #333333;
 
   &:hover{
-    background-color: black;
+    background-color: #333333;
   }
+
+  a {
+    &:hover{
+      background-color: black;
+    }
+  }    
 }

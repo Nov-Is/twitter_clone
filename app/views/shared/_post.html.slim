@@ -1,0 +1,16 @@
+.container.d-flex.border-top.border-bottom.border-secondary.p-2
+  - if post.image.attached?
+    = image_tag post.image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3", style: "height: 40px;"
+  - else
+    = image_tag '40x40.png', class: "rounded-circle me-3", style: "height: 40px;"
+  .container
+    p.my-0.lh-sm name @test
+    p.mb-1 = post.content
+    = link_to root_path, class: "btn text-light btn-custom me-5" do
+      i.fa-regular.fa-comment
+    = link_to root_path, class: "btn text-light btn-custom mx-5" do
+      i.fa-solid.fa-repeat
+    = link_to root_path, class: "btn text-light btn-custom mx-5" do
+      i.fa-regular.fa-heart
+    = link_to root_path, class: "btn text-light btn-custom mx-5" do
+      i.fa-regular.fa-bookmark

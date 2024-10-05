@@ -9,10 +9,16 @@ class User < ApplicationRecord
 
   validates :phone_number, :birth_date, presence: true
   validates :uid, uniqueness: { scope: :provider }, if: -> { uid.present? }
-  has_many :relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy,
-                           inverse_of: :user
-  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'followee_id', dependent: :destroy,
-                                      inverse_of: :user
+
+  # 自分がフォローしている人
+  has_many :relationships, foreign_key: :followee_id, dependent: :destroy, inverse_of: :relationship
+  has_many :followees, through: :relationships, source: :follower
+  # 自分をフォローしている人
+  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: :follower_id, dependent: :destroy,
+                                      inverse_of: :relationship
+  has_many :followers, through: :reverse_of_relationships, source: :followee
+
+  has_many :posts, dependent: :destroy
   has_one_attached :image
 
   def self.from_omniauth(auth)

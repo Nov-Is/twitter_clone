@@ -1,16 +1,16 @@
 .container-fluid
   .row
     = render "shared/sidebar"
-    .col-9.border-start.border-secondary.px-0(style="margin: 0 0 0 auto;")
+    .col-9.border-start.border-secondary.px-0(style="margin: 0 0 0 auto;" data-controller="tabs" data-tabs-active-class="bg-dark" data-tabs-default-tab-value="tab1")
       .w-100
         ul.list-group.list-group-horizontal.position-fixed.flex-row.me-1(style="width: calc(100vw - calc(100vw / 4));")
-          li.list-group-item.list-group-item-action.list-group-item-custom.text-center
-            = link_to "おすすめ", new_user_session_path, class: "btn px-5 fs-6 fw-bold text-white text-center", role: "button"
-          li.list-group-item.list-group-item-action.list-group-item-custom.text-center
-            = link_to "フォロー中", new_user_session_path, class: "btn px-5 fs-6 fw-bold text-white text-center", role: "button"
+          li#tab1.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
+            = link_to "おすすめ", root_path(tab: :tab1), class: "btn px-5 fs-6 fw-bold text-white text-center", id: "tab1", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
+          li#tab2.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
+            = link_to "フォロー中", root_path(tab: :tab2), class: "btn px-5 fs-6 fw-bold text-white text-center", id: "tab2", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
       .container.px-0(style="margin: 56px 0 0 0;")
         .container.d-flex.border-top.border-bottom.border-secondary.p-2
-          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
+          = image_tag current_user.image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3", style: "height: 40px"
           = form_with url: root_path, class: "w-100" do |f|  
             .container.my-1
               .field.w-75
@@ -23,81 +23,16 @@
                     = f.file_field :image, class: "btn text-light btn-custom me-5", style: "display: none;"
               .actions.col-3
                 = f.submit "ポストする", style: "background-color: rgb(29 155 240);", class: "text-white fw-bold px-5 py-2 rounded-5 border-0"
-        .container.d-flex.border-top.border-bottom.border-secondary.p-2
-          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
-          .container
-            p.my-0.lh-sm name @test
-            p.mb-1 post text
-            = link_to root_path, class: "btn text-light btn-custom me-5" do
-              i.fa-regular.fa-comment
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-solid.fa-repeat
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-regular.fa-heart
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-regular.fa-bookmark
-        .container.d-flex.border-top.border-bottom.border-secondary.p-2
-          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
-          .container
-            p.my-0.lh-sm name @test
-            p.mb-1 post text
-            = link_to root_path, class: "btn text-light btn-custom me-5" do
-              i.fa-regular.fa-comment
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-solid.fa-repeat
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-regular.fa-heart
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-regular.fa-bookmark
-        .container.d-flex.border-top.border-bottom.border-secondary.p-2
-          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
-          .container
-            p.my-0.lh-sm name @test
-            p.mb-1 post text
-            = link_to root_path, class: "btn text-light btn-custom me-5" do
-              i.fa-regular.fa-comment
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-solid.fa-repeat
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-regular.fa-heart
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-regular.fa-bookmark
-        .container.d-flex.border-top.border-bottom.border-secondary.p-2
-          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
-          .container
-            p.my-0.lh-sm name @test
-            p.mb-1 post text
-            = link_to root_path, class: "btn text-light btn-custom me-5" do
-              i.fa-regular.fa-comment
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-solid.fa-repeat
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-regular.fa-heart
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-regular.fa-bookmark
-        .container.d-flex.border-top.border-bottom.border-secondary.p-2
-          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
-          .container
-            p.my-0.lh-sm name @test
-            p.mb-1 post text
-            = link_to root_path, class: "btn text-light btn-custom me-5" do
-              i.fa-regular.fa-comment
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-solid.fa-repeat
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-regular.fa-heart
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-regular.fa-bookmark
-        .container.d-flex.border-top.border-bottom.border-secondary.p-2
-          = image_tag("https://placehold.jp/40x40.png", size: "40x40", class: "rounded-circle me-3")
-          .container
-            p.my-0.lh-sm name @test
-            p.mb-1 post text
-            = link_to root_path, class: "btn text-light btn-custom me-5" do
-              i.fa-regular.fa-comment
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-solid.fa-repeat
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-regular.fa-heart
-            = link_to root_path, class: "btn text-light btn-custom mx-5" do
-              i.fa-regular.fa-bookmark
+      - case params[:tab]
+      - when nil, "tab1"
+        div#tab1 data-tabs-target="tab"
+          - @recommend_posts.each do |post|
+            = render partial: "shared/post", locals: { post: post }
+          div.container.my-3.d-flex.justify-content-center
+            = paginate @recommend_posts, param_name: post_page("tab1"), params: { tab: "tab1" }
+      - when "tab2"
+        div#tab2
+          - @follow_posts.each do |post|
+            = render partial: "shared/post", locals: { post: post }
+          div.container.my-3.d-flex.justify-content-center
+            = paginate @follow_posts, param_name: post_page("tab2"), params: { tab: "tab2" }
