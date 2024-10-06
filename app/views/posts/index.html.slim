@@ -5,9 +5,9 @@
       .w-100
         ul.list-group.list-group-horizontal.position-fixed.flex-row.me-1(style="width: calc(100vw - calc(100vw / 4));")
           li#tab1.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
-            = link_to "おすすめ", root_path(tab: :tab1), class: "btn px-5 fs-6 fw-bold text-white text-center", id: "tab1", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
+            = link_to "おすすめ", root_path(tab: :recommend), class: "btn px-5 fs-6 fw-bold text-white text-center", id: "tab1", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
           li#tab2.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
-            = link_to "フォロー中", root_path(tab: :tab2), class: "btn px-5 fs-6 fw-bold text-white text-center", id: "tab2", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
+            = link_to "フォロー中", root_path(tab: :follow), class: "btn px-5 fs-6 fw-bold text-white text-center", id: "tab2", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
       .container.px-0(style="margin: 56px 0 0 0;")
         .container.d-flex.border-top.border-bottom.border-secondary.p-2
           = image_tag current_user.image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3", style: "height: 40px"
@@ -24,15 +24,15 @@
               .actions.col-3
                 = f.submit "ポストする", style: "background-color: rgb(29 155 240);", class: "text-white fw-bold px-5 py-2 rounded-5 border-0"
       - case params[:tab]
-      - when nil, "tab1"
+      - when nil, "recommend"
         div#tab1 data-tabs-target="tab"
           - @recommend_posts.each do |post|
             = render partial: "shared/post", locals: { post: post }
           div.container.my-3.d-flex.justify-content-center
-            = paginate @recommend_posts, param_name: post_page("tab1"), params: { tab: "tab1" }
-      - when "tab2"
+            = paginate @recommend_posts, param_name: post_page("tab1"), params: { tab: "recommend" }
+      - when "follow"
         div#tab2
           - @follow_posts.each do |post|
             = render partial: "shared/post", locals: { post: post }
           div.container.my-3.d-flex.justify-content-center
-            = paginate @follow_posts, param_name: post_page("tab2"), params: { tab: "tab2" }
+            = paginate @follow_posts, param_name: post_page("tab2"), params: { tab: "follow" }
