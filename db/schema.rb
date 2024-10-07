@@ -51,10 +51,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_22_035844) do
   end
 
   create_table "relationships", force: :cascade do |t|
-    t.integer "follower_id"
-    t.integer "followee_id"
+    t.bigint "follower_id"
+    t.bigint "followee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["followee_id"], name: "index_relationships_on_followee_id"
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -99,4 +101,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_22_035844) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "posts", "users"
+  add_foreign_key "relationships", "users", column: "followee_id"
+  add_foreign_key "relationships", "users", column: "follower_id"
 end
