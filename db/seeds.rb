@@ -10,13 +10,22 @@
 
 3.times do |n|
   User.create!(
+    name: "name#{n + 1}",
+    username: "username#{n + 1}",
+    self_introduction: "ruby on railsの学習をしています。
+    よろしくお願いします。",
+    location: '神奈川 横浜市',
+    website: 'https://www.google.com',
     email: "test#{n + 1}@example.com",
     password: 'hogefuga',
     phone_number: '00000000000',
     birth_date: '2000-01-01',
     uid: SecureRandom.uuid,
-    image: ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app/assets/images/40x40.png')),
-                                                  filename: 'test.jpg')
+    icon_image: ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app/assets/images/40x40.png')),
+                                                       filename: 'icon.jpg'),
+    header_image: ActiveStorage::Blob.create_and_upload!(
+      io: File.open(Rails.root.join('app/assets/images/800x300.png')), filename: 'header.jpg'
+    )
   )
 end
 
