@@ -1,0 +1,62 @@
+.container-fluid
+  .row
+    = render "shared/sidebar"
+    .col-9.border-start.border-secondary.px-0(style="margin: 0 0 0 auto;")
+      .w-100
+        .container
+          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+            i.fa-solid.fa-arrow-left.fa-fw.me-2
+          = @user.name
+        .container.w-100(style="height: 200px; position: relative;")
+          = image_tag @user.header_image, class: "w-100 h-100", style: "object-fit: cover;"
+          = image_tag @user.icon_image.variant(resize_to_fit: [100, 100]), class: "rounded-circle border border-dark", style: "position: absolute; top:150px; left:20px;"
+        .container.w-100
+          .text-end
+            - if current_user == @user
+              = link_to "プロフィールを編集", new_user_session_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-2 btn-custom border-white", role: "button"
+            - elsif @user.followers
+              = link_to "フォロー解除", new_user_session_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-2 btn-custom border-white", role: "button"
+            - else # 実装上手くいっていない
+              = link_to "フォロー", new_user_session_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-2 btn-custom border-white", role: "button"
+          .container.mt-3
+            p.fs-2.lh-1.my-0 = @user.name
+            p.fw-lighter.text-muted.my-0
+              | @
+              = @user.username
+            p.my-3 = simple_format(@user.self_introduction)
+          .container.fw-lighter.text-muted
+            i.fa-solid.fa-location-dot.me-2
+            = @user.location
+            i.fa-solid.fa-paperclip.mx-2
+            = @user.website
+            i.fa-solid.fa-cake-candles.mx-2
+            | 誕生日 
+            = l @user.birth_date, format: :birth_date
+            br
+            = l @user.created_at, format: :created_at
+            | からXを利用しています
+          .container.mt-3
+            p.d-inline.block
+              = @followee_count
+              span.fw-lighter.text-muted
+                |  フォロー中
+            p.d-inline.block.ms-3
+              = @follower_count
+              span.fw-lighter.text-muted
+                |  フォロワー
+      .border-bottom.border-secondary
+        ul.list-group.list-group-horizontal.flex-row
+          li#tab1.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
+            = link_to "ポスト", root_path(tab: :recommend), class: "btn fs-6 fw-bold text-white text-center", id: "tab1", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
+          li#tab2.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
+            = link_to "ポストと返信", root_path(tab: :follow), class: "btn fs-6 fw-bold text-white text-center", id: "tab2", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
+          li#tab3.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
+            = link_to "メディア", root_path(tab: :follow), class: "btn fs-6 fw-bold text-white text-center", id: "tab3", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
+          li#tab4.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
+            = link_to "いいね", root_path(tab: :follow), class: "btn fs-6 fw-bold text-white text-center", id: "tab4", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
+        #tab1 data-tabs-target="tab"
+          - @my_posts.each do |post|
+            = render partial: "shared/post", locals: { post: post }
+          .container.my-3.d-flex.justify-content-center
+            = paginate @my_posts, param_name: post_page("tab1"), params: { tab: "myposts" }
+

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resource :users do
+    resources :profiles, only: %i[show edit update]
+  end
   resources :posts, only: %i[show new]
   root 'posts#index'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',

@@ -19,7 +19,8 @@ class User < ApplicationRecord
   has_many :followers, through: :reverse_of_relationships, source: :followee
 
   has_many :posts, dependent: :destroy
-  has_one_attached :image
+  has_one_attached :icon_image
+  has_one_attached :header_image
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -38,4 +39,8 @@ class User < ApplicationRecord
   def self.create_unique_string
     SecureRandom.uuid
   end
+
+  delegate :count, to: :followees, prefix: true
+
+  delegate :count, to: :followers, prefix: true
 end
