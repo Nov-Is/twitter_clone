@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   resource :users do
     resources :profiles, only: %i[show edit update]
   end
-  resources :posts, only: %i[show new]
+  resources :posts, only: %i[show new] do
+    resources :favorites, only: %i[create destroy]
+    resources :reposts, only: %i[create destroy]
+    resources :comments, only: %i[create destroy]
+  end
   root 'posts#index'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
                                     registrations: 'users/registrations' }

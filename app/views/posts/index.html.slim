@@ -10,8 +10,12 @@
             = link_to "フォロー中", root_path(tab: :follow), class: "btn px-5 fs-6 fw-bold text-white text-center", id: "tab2", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
       .container.px-0(style="margin: 56px 0 0 0;")
         .container.d-flex.border-top.border-bottom.border-secondary.p-2
-          = link_to users_profile_path(:id) do
-            = image_tag current_user.icon_image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3", style: "height: 40px"
+          - if current_user.icon_image.present?
+            = link_to users_profile_path(current_user.id) do
+              = image_tag current_user.icon_image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3", style: "height: 40px"
+          - else
+            = link_to users_profile_path(current_user.id) do
+              = image_tag "40x40.png", class: "rounded-circle me-3", style: "height: 40px"
           = form_with url: root_path, class: "w-100" do |f|  
             .container.my-1
               .field.w-75

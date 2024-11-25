@@ -25,7 +25,7 @@
         i.fa-brands.fa-square-twitter.fa-fw.me-3
         | Twitter Blue
     li
-      = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+      = link_to users_profile_path(current_user.id), class: "btn btn-lg text-light btn-custom" do
         i.fa-regular.fa-user.fa-fw.me-3
         | プロフィール
     li
