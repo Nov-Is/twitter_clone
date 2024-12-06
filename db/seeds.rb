@@ -49,3 +49,24 @@ end
     content: "2-#{n + 1}の追加投稿です。"
   )
 end
+
+3.times do |n|
+  Repost.create!(
+    user_id: n + 1,
+    post_id: 1
+  )
+end
+
+3.times do |n|
+  Comment.create!(
+    user_id: n + 1,
+    post_id: 2
+  )
+end
+
+3.times do |n|
+  Favorite.create!(
+    user_id: n + 1,
+    post_id: 3
+  )
+end
