@@ -19,7 +19,7 @@
         .container.w-100
           .text-end
             - if current_user == @user
-              = link_to "プロフィールを編集", new_user_session_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-2 btn-custom border-white", role: "button"
+              = link_to "プロフィールを編集", edit_users_profile_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-2 btn-custom border-white", role: "button"
             - elsif @user.followers
               = link_to "フォロー解除", new_user_session_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-2 btn-custom border-white", role: "button"
             - else # 実装上手くいっていない
@@ -70,22 +70,22 @@
             - @my_posts.each do |post|
               = render partial: "shared/post", locals: { post: post }
             .container.my-3.d-flex.justify-content-center
-              = paginate @my_posts, param_name: post_page("tab1"), params: { tab: "my_posts" }
+              = paginate @my_posts, param_name: profile_page("tab1"), params: { tab: "my_posts" }
         - when "reposts"
           #tab2 data-tabs-target="tab"
             - @reposts.each do |repost|
               = render partial: "shared/post", locals: { post: repost.post }
             .container.my-3.d-flex.justify-content-center
-              = paginate @reposts, param_name: post_page("tab2"), params: { tab: "reposts" }
+              = paginate @reposts, param_name: profile_page("tab2"), params: { tab: "reposts" }
         - when "comments"
           #tab3 data-tabs-target="tab"
             - @comments.each do |comment|
               = render partial: "shared/post", locals: { post: comment.post }
             .container.my-3.d-flex.justify-content-center
-              = paginate @comments, param_name: post_page("tab3"), params: { tab: "comments" }
+              = paginate @comments, param_name: profile_page("tab3"), params: { tab: "comments" }
         - when "favorite_posts"
           #tab4 data-tabs-target="tab"
             - @favorite_posts.each do |favorite|
               = render partial: "shared/post", locals: { post: favorite.post }
             .container.my-3.d-flex.justify-content-center
-              = paginate @favorite_posts, param_name: post_page("tab4"), params: { tab: "favorite_posts" }
+              = paginate @favorite_posts, param_name: profile_page("tab4"), params: { tab: "favorite_posts" }

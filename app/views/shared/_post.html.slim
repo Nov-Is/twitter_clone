@@ -1,12 +1,14 @@
 .container.d-flex.border-top.border-bottom.border-secondary.p-2
-  - if post.image.attached?
+  - if post.user.icon_image.attached?
     = link_to users_profile_path(post.user_id) do
-      = image_tag post.icon_image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3", style: "height: 40px;"
+      = image_tag post.user.icon_image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3", style: "height: 40px;"
   - else
     = link_to users_profile_path(post.user_id) do
       = image_tag '40x40.png', class: "rounded-circle me-3", style: "height: 40px;"
   .container
-    p.my-0.lh-sm name @test
+    = post.user.name
+    |  @
+    = post.user.username
     p.mb-1 = post.content
     = link_to root_path, class: "btn text-light btn-custom me-5" do
       i.fa-regular.fa-comment

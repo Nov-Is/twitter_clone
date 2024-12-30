@@ -1,2 +1,53 @@
-h1 Profiles#edit
-p Find me in app/views/profiles/edit.html.slim
+.container-fluid
+  .row
+    = render "shared/sidebar"
+    .col-9.border-start.border-secondary.px-0(style="margin: 0 0 0 auto;")
+      .w-100
+        .container
+          h1.fs-5 プロフィールを編集
+          = form_with model: @user, url:users_profile_path, local: true do |form|
+            .container.w-100(style="height: 200px; position: relative;")
+              - if @user.header_image.present?
+                = image_tag @user.header_image, class: "w-100 h-100", style: "object-fit: cover;"
+              - else
+                = image_tag "800x300.png", class: "w-100 h-100", style: "object-fit: cover;"
+              label
+                i.fa-solid.fa-camera.fs-3.text-dark.opacity-75(style= "position: absolute; top:20px; left:30px;")
+                = form.file_field :header_image, style: "display: none;"
+              .container(style="position: relative;")
+                - if @user.icon_image.present?
+                  = image_tag @user.icon_image.variant(resize_to_fit: [100, 100]), class: "rounded-circle border border-dark", style: "position: absolute; top:-50px; left:20px;"
+                - else
+                  = image_tag "40x40.png", class: "rounded-circle border border-dark", style: "position: absolute; top:-50px; left:20px; width: 100px; height: 100px;"
+                label
+                  i.fa-solid.fa-camera.fs-3.text-dark.opacity-75(style= "position: absolute; top:-12px; left:55px;")
+                  = form.file_field :icon_image, style: "display: none;"
+            .container.w-100 style="margin-top: 60px;"
+              .container.w-50.m-0.mb-2.rounded-1 style="border: 1px solid rgb(62 65 68);"
+                = form.label "名前", style: "color: rgb(29 155 240)"
+                br
+                = form.text_field :name, autofocus: true, class: "form-control border-0 mb-2 w-100", style: "outline: none;"
+              .container.w-50.m-0.mb-2.rounded-1 style="border: 1px solid rgb(62 65 68);"
+                = form.label "ユーザーネーム", style: "color: rgb(29 155 240)"
+                br
+                | @
+                = form.text_field :username, autofocus: true, class: "form-control border-0 ms-2 mb-2 w-75 d-inline-block", style: "outline: none;"
+              .container.w-50.m-0.mb-2.rounded-1 style="border: 1px solid rgb(62 65 68);"
+                = form.label "自己紹介", style: "color: rgb(29 155 240)"
+                br
+                = form.text_area :self_introduction, autofocus: true, class: "form-control border-0 mb-2 w-100", style: "outline: none;"
+              .container.w-50.m-0.mb-2.rounded-1 style="border: 1px solid rgb(62 65 68);"
+                = form.label "場所", style: "color: rgb(29 155 240)"
+                br
+                = form.text_field :location, autofocus: true, class: "form-control border-0 mb-2 w-100", style: "outline: none;"
+              .container.w-50.m-0.mb-2.rounded-1 style="border: 1px solid rgb(62 65 68);"
+                = form.label "Webサイト", style: "color: rgb(29 155 240)"
+                br
+                = form.text_field :website, autofocus: true, class: "form-control border-0 mb-2 w-100", style: "outline: none;"
+              .container.w-50.m-0.mb-2.rounded-1 style="border: 1px solid rgb(62 65 68);"
+                = form.label "誕生日", style: "color: rgb(29 155 240)"
+                br
+                = form.date_field :birth_date, autofocus: true, class: "form-control border-0 mb-2 w-100", style: "outline: none;"
+            .container.m-3.mb-5
+              = form.submit nil, class:"btn btn-primary"
+          
