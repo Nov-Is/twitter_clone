@@ -1,5 +1,10 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+@import 'profiles/edit.scss';
+
+.right-section {
+  margin: 0 0 0 auto
+}
 
 .btn-custom:hover {
   background-color: black;

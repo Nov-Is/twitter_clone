@@ -1,91 +1,90 @@
-.container-fluid
-  .row
-    = render "shared/sidebar"
-    .col-9.border-start.border-secondary.px-0(style="margin: 0 0 0 auto;")
-      .w-100
-        .container
-          = link_to root_path, class: "btn btn-lg text-light btn-custom" do
-            i.fa-solid.fa-arrow-left.fa-fw.me-2
-          = @user.name
-        .container.w-100(style="height: 200px; position: relative;")
-          - if @user.header_image.present?
-            = image_tag @user.header_image, class: "w-100 h-100", style: "object-fit: cover;"
-          - else
-            = image_tag "800x300.png", class: "w-100 h-100", style: "object-fit: cover;"
-          - if @user.icon_image.present?
-            = image_tag @user.icon_image.variant(resize_to_fit: [100, 100]), class: "rounded-circle border border-dark", style: "position: absolute; top:150px; left:20px;"
-          - else
-            = image_tag "40x40.png", class: "rounded-circle border border-dark", style: "position: absolute; top:150px; left:20px; width: 100px; height: 100px;"
-        .container.w-100
-          .text-end
-            - if current_user == @user
-              = link_to "プロフィールを編集", edit_users_profile_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-2 btn-custom border-white", role: "button"
-            - elsif @user.followers
-              = link_to "フォロー解除", new_user_session_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-2 btn-custom border-white", role: "button"
-            - else # 実装上手くいっていない
-              = link_to "フォロー", new_user_session_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-2 btn-custom border-white", role: "button"
-          .container.mt-3
-            p.fs-2.lh-1.my-0
-              - if @user.name.nil?
-                | name
-              - else 
-                = @user.name
-            p.fw-lighter.text-muted.my-0
-              | @
-              = @user.username
-            p.my-3 = simple_format(@user.self_introduction)
-          .container.fw-lighter.text-muted
-            i.fa-solid.fa-location-dot.me-2
-            = @user.location
-            i.fa-solid.fa-paperclip.mx-2
-            = @user.website
-            i.fa-solid.fa-cake-candles.mx-2
-            | 誕生日 
-            = l @user.birth_date, format: :birth_date
-            br
-            = l @user.created_at, format: :created_at
-            | からXを利用しています
-          .container.mt-3
-            p.d-inline.block
-              = @followee_count
-              span.fw-lighter.text-muted
-                |  フォロー中
-            p.d-inline.block.ms-3
-              = @follower_count
-              span.fw-lighter.text-muted
-                |  フォロワー
-      .border-bottom.border-secondary
-        ul.list-group.list-group-horizontal.flex-row
-          li#tab1.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
-            = link_to "ポスト", users_profile_path(@user.id, tab: :my_posts), class: "btn fs-6 fw-bold text-white text-center", id: "tab1", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
-          li#tab2.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
-            = link_to "リポスト", users_profile_path(@user.id, tab: :reposts), class: "btn fs-6 fw-bold text-white text-center", id: "tab2", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
-          li#tab3.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
-            = link_to "コメント", users_profile_path(@user.id, tab: :comments), class: "btn fs-6 fw-bold text-white text-center", id: "tab3", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
-          li#tab4.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
-            = link_to "いいね", users_profile_path(@user.id, tab: :favorite_posts), class: "btn fs-6 fw-bold text-white text-center", id: "tab4", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
-        - case params[:tab]
-        - when nil, "my_posts"
-          #tab1 data-tabs-target="tab"
-            - @my_posts.each do |post|
-              = render partial: "shared/post", locals: { post: post }
-            .container.my-3.d-flex.justify-content-center
-              = paginate @my_posts, param_name: profile_page("tab1"), params: { tab: "my_posts" }
-        - when "reposts"
-          #tab2 data-tabs-target="tab"
-            - @reposts.each do |repost|
-              = render partial: "shared/post", locals: { post: repost.post }
-            .container.my-3.d-flex.justify-content-center
-              = paginate @reposts, param_name: profile_page("tab2"), params: { tab: "reposts" }
-        - when "comments"
-          #tab3 data-tabs-target="tab"
-            - @comments.each do |comment|
-              = render partial: "shared/post", locals: { post: comment.post }
-            .container.my-3.d-flex.justify-content-center
-              = paginate @comments, param_name: profile_page("tab3"), params: { tab: "comments" }
-        - when "favorite_posts"
-          #tab4 data-tabs-target="tab"
-            - @favorite_posts.each do |favorite|
-              = render partial: "shared/post", locals: { post: favorite.post }
-            .container.my-3.d-flex.justify-content-center
-              = paginate @favorite_posts, param_name: profile_page("tab4"), params: { tab: "favorite_posts" }
+.row
+  = render "shared/sidebar"
+  .col-9.border-start.border-secondary.px-0(style="margin: 0 0 0 auto;")
+    .w-100
+      .container
+        = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+          i.fa-solid.fa-arrow-left.fa-fw.me-2
+        = @user.name
+      .container.w-100(style="height: 200px; position: relative;")
+        - if @user.header_image.present?
+          = image_tag @user.header_image, class: "w-100 h-100", style: "object-fit: cover;"
+        - else
+          = image_tag "800x300.png", class: "w-100 h-100", style: "object-fit: cover;"
+        - if @user.icon_image.present?
+          = image_tag @user.icon_image.variant(resize_to_fit: [100, 100]), class: "rounded-circle border border-dark", style: "position: absolute; top:150px; left:20px;"
+        - else
+          = image_tag "40x40.png", class: "rounded-circle border border-dark", style: "position: absolute; top:150px; left:20px; width: 100px; height: 100px;"
+      .container.w-100
+        .text-end
+          - if current_user == @user
+            = link_to "プロフィールを編集", edit_users_profile_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-2 btn-custom border-white", role: "button"
+          - elsif @user.followers
+            = link_to "フォロー解除", new_user_session_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-2 btn-custom border-white", role: "button"
+          - else # 実装上手くいっていない
+            = link_to "フォロー", new_user_session_path, class: "btn rounded-pill px-5 fs-6 fw-bold text-white mt-2 btn-custom border-white", role: "button"
+        .container.mt-3
+          p.fs-2.lh-1.my-0
+            - if @user.name.nil?
+              | name
+            - else 
+              = @user.name
+          p.fw-lighter.text-muted.my-0
+            | @
+            = @user.username
+          p.my-3 = simple_format(@user.self_introduction)
+        .container.fw-lighter.text-muted
+          i.fa-solid.fa-location-dot.me-2
+          = @user.location
+          i.fa-solid.fa-paperclip.mx-2
+          = @user.website
+          i.fa-solid.fa-cake-candles.mx-2
+          | 誕生日 
+          = l @user.birth_date, format: :birth_date
+          br
+          = l @user.created_at, format: :created_at
+          | からXを利用しています
+        .container.mt-3
+          p.d-inline.block
+            = @followee_count
+            span.fw-lighter.text-muted
+              |  フォロー中
+          p.d-inline.block.ms-3
+            = @follower_count
+            span.fw-lighter.text-muted
+              |  フォロワー
+    .border-bottom.border-secondary
+      ul.list-group.list-group-horizontal.flex-row
+        li#tab1.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
+          = link_to "ポスト", users_profile_path(@user.id, tab: :my_posts), class: "btn fs-6 fw-bold text-white text-center", id: "tab1", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
+        li#tab2.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
+          = link_to "リポスト", users_profile_path(@user.id, tab: :reposts), class: "btn fs-6 fw-bold text-white text-center", id: "tab2", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
+        li#tab3.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
+          = link_to "コメント", users_profile_path(@user.id, tab: :comments), class: "btn fs-6 fw-bold text-white text-center", id: "tab3", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
+        li#tab4.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
+          = link_to "いいね", users_profile_path(@user.id, tab: :favorite_posts), class: "btn fs-6 fw-bold text-white text-center", id: "tab4", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
+      - case params[:tab]
+      - when nil, "my_posts"
+        #tab1 data-tabs-target="tab"
+          - @my_posts.each do |post|
+            = render partial: "shared/post", locals: { post: post }
+          .container.my-3.d-flex.justify-content-center
+            = paginate @my_posts, param_name: profile_page("tab1"), params: { tab: "my_posts" }
+      - when "reposts"
+        #tab2 data-tabs-target="tab"
+          - @reposts.each do |repost|
+            = render partial: "shared/post", locals: { post: repost.post }
+          .container.my-3.d-flex.justify-content-center
+            = paginate @reposts, param_name: profile_page("tab2"), params: { tab: "reposts" }
+      - when "comments"
+        #tab3 data-tabs-target="tab"
+          - @comments.each do |comment|
+            = render partial: "shared/post", locals: { post: comment.post }
+          .container.my-3.d-flex.justify-content-center
+            = paginate @comments, param_name: profile_page("tab3"), params: { tab: "comments" }
+      - when "favorite_posts"
+        #tab4 data-tabs-target="tab"
+          - @favorite_posts.each do |favorite|
+            = render partial: "shared/post", locals: { post: favorite.post }
+          .container.my-3.d-flex.justify-content-center
+            = paginate @favorite_posts, param_name: profile_page("tab4"), params: { tab: "favorite_posts" }

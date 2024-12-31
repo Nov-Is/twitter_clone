@@ -27,8 +27,9 @@ html
               = link_to "新規登録", new_user_registration_path, class: "btn btn-primary", role: "button"
     - flash.each do |type, message|
       = content_tag(:div, message, class: "fixed-top alert alert-#{type == "notice" ? "success" : "danger"}", style: "margin-top: 56px;")
-    - if flash[:notice] || flash[:success]
-      .for-flash(style="margin-bottom: 56px;")
-      = yield
-    - else
-      = yield
+    .container-fluid class="#{controller.controller_name}_#{controller.action_name}"
+      - if flash[:notice] || flash[:success]
+        .for-flash(style="margin-bottom: 56px;")
+        = yield
+      - else
+        = yield
