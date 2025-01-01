@@ -13,7 +13,7 @@
     name: "name#{n + 1}",
     username: "username#{n + 1}",
     self_introduction: "ruby on railsの学習をしています。
-    よろしくお願いします。",
+よろしくお願いします。",
     location: '神奈川 横浜市',
     website: 'https://www.google.com',
     email: "test#{n + 1}@example.com",

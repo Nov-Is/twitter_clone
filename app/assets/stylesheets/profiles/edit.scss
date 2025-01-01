@@ -1,0 +1,54 @@
+.profiles_edit {
+  .header_container {
+    height: 200px;
+    position: relative;
+
+    img {
+      object-fit: cover;
+    }
+  
+    .header_photomark {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+    }
+
+    input {
+      display: none;
+    }
+
+    .icon_container {
+      position: relative;
+
+      img {
+        position: absolute;
+        top: -50px;
+        left: 20px;
+        width: 100px;
+        height: 100px;
+      }
+
+      .icon_photomark {
+        position: absolute;
+        top: -12px;
+        left: 55px;
+      }
+    }
+  }
+
+  .edit {
+    margin-top: 60px;
+
+    .editbox {
+      border: 1px solid rgb(62 65 68);
+
+      label {
+        color: rgb(29 155 240);
+      }
+
+      input {
+        outline: none;
+      }
+    }
+  }
+}
