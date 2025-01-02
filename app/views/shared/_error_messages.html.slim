@@ -1,0 +1,6 @@
+- if model.errors.any?
+  #error_explanation[data-turbo-cache="false"]
+  ul
+    - model.errors.full_messages.each do |message|
+      li.text-warning
+        = message

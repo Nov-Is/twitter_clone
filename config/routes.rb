@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resource :users do
     resources :profiles, only: %i[show edit update]
   end
-  resources :posts, only: %i[show new] do
+  resources :posts, only: %i[show new create] do
     resources :favorites, only: %i[create destroy]
     resources :reposts, only: %i[create destroy]
     resources :comments, only: %i[create destroy]

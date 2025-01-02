@@ -1,32 +1,33 @@
 .row
   = render "shared/sidebar"
-  .col-9.border-start.border-secondary.px-0(style="margin: 0 0 0 auto;" data-controller="tabs" data-tabs-active-class="bg-dark" data-tabs-default-tab-value="tab1")
+  .col-9.border-start.border-secondary.px-0.right-section(data-controller="tabs" data-tabs-active-class="bg-dark" data-tabs-default-tab-value="tab1")
     .w-100
-      ul.list-group.list-group-horizontal.position-fixed.flex-row.me-1(style="width: calc(100vw - calc(100vw / 4));")
+      ul.list-group.list-group-horizontal.position-fixed.flex-row.me-1.tab
         li#tab1.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
           = link_to "おすすめ", root_path(tab: :recommend), class: "btn px-5 fs-6 fw-bold text-white text-center", id: "tab1", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
         li#tab2.list-group-item.list-group-item-action.list-group-item-custom.text-center.border-0
           = link_to "フォロー中", root_path(tab: :follow), class: "btn px-5 fs-6 fw-bold text-white text-center", id: "tab2", data: {tabs_target: "btn", action: "click->tabs#select" }, remote: true
-    .container.px-0(style="margin: 56px 0 0 0;")
+    .container.px-0.post_form
       .container.d-flex.border-top.border-bottom.border-secondary.p-2
         - if current_user.icon_image.present?
           = link_to users_profile_path(current_user.id) do
-            = image_tag current_user.icon_image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3", style: "height: 40px"
+            = image_tag current_user.icon_image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3 icon_image"
         - else
           = link_to users_profile_path(current_user.id) do
-            = image_tag "40x40.png", class: "rounded-circle me-3", style: "height: 40px"
-        = form_with url: root_path, class: "w-100" do |f|  
+            = image_tag "40x40.png", class: "rounded-circle me-3 icon_image"
+        = form_with model: @post, url: posts_path, method: :post, class: "w-100", local: true do |f|  
           .container.my-1
+            = render "shared/error_messages", model: @post
             .field.w-75
-            = f.text_area :post, class: "border-0 text-light w-100 lh-sm", placeholder: "いまどうしてる？", style: "outline: none; caret-color: white; background-color: #333333; height: 40px; resize: none;"
+            = f.text_area :content, class: "border-0 text-light w-100 lh-sm", placeholder: "いまどうしてる？"
           .container.row.justify-content-between
             .container.col-1.mx-0.d-flex.align-items-center
               .field
-                = f.label :image, style: "color: rgb(29 155 240);"
+                = f.label :images
                   i.fa-regular.fa-image.text-white
-                  = f.file_field :image, class: "btn text-light btn-custom me-5", style: "display: none;"
+                  = f.file_field :images, name: 'post[images][]', data: {index: 0}, class: "btn text-light btn-custom me-5 image_button"
             .actions.col-3
-              = f.submit "ポストする", style: "background-color: rgb(29 155 240);", class: "text-white fw-bold px-5 py-2 rounded-5 border-0"
+              = f.submit "ポストする", class: "text-white fw-bold px-5 py-2 rounded-5 border-0 post_button"
     - case params[:tab]
     - when nil, "recommend"
       div#tab1 data-tabs-target="tab"
