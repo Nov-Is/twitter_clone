@@ -28,7 +28,7 @@ html
     - flash.each do |type, message|
       = content_tag(:div, message, class: "fixed-top alert alert-#{type == "notice" ? "success" : "danger"}", style: "margin-top: 56px;")
     .container-fluid class="#{controller.controller_name}_#{controller.action_name}"
-      - if flash[:notice] || flash[:success]
+      - if flash.present?
         .for-flash(style="margin-bottom: 56px;")
         = yield
       - else

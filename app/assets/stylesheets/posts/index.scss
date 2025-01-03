@@ -1,0 +1,29 @@
+.posts_index, .posts_create {
+  .tab {
+    width: calc(100vw - calc(100vw / 4));
+  }
+
+  .post_form {
+    margin: 56px 0 0 0;
+
+    .icon_img {
+      height: 40px;
+    }
+
+    textarea {
+      outline: none;
+      caret-color: white;
+      background-color: #333;
+      height: 40px;
+      resize: none;
+    }
+
+    .image_button {
+      display: none;
+    }
+
+    .post_button {
+      background-color: rgb(29 155 240);
+    }
+  }
+}
