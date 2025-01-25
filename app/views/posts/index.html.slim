@@ -10,11 +10,11 @@
     .container.px-0.post_form
       .container.d-flex.border-top.border-bottom.border-secondary.p-2
         - if current_user.icon_image.present?
-          = link_to users_profile_path(current_user.id) do
-            = image_tag current_user.icon_image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3 icon_image"
+          = link_to users_profile_path(current_user.id), class: "icon_image" do
+            = image_tag current_user.icon_image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3"
         - else
-          = link_to users_profile_path(current_user.id) do
-            = image_tag "40x40.png", class: "rounded-circle me-3 icon_image"
+          = link_to users_profile_path(current_user.id), class: "icon_image" do
+            = image_tag "40x40.png", class: "rounded-circle me-3"
         = form_with model: @post, url: posts_path, method: :post, class: "w-100", local: true do |f|  
           .container.my-1
             = render "shared/error_messages", model: @post
@@ -30,13 +30,13 @@
               = f.submit "ポストする", class: "text-white fw-bold px-5 py-2 rounded-5 border-0 post_button"
     - case params[:tab]
     - when nil, "recommend"
-      div#tab1 data-tabs-target="tab"
+      div#tab1.z-3 data-tabs-target="tab"
         - @recommend_posts.each do |post|
           = render partial: "shared/post", locals: { post: post }
         div.container.my-3.d-flex.justify-content-center
           = paginate @recommend_posts, param_name: post_page("tab1"), params: { tab: "recommend" }
     - when "follow"
-      div#tab2
+      div#tab2.z-3
         - @follow_posts.each do |post|
           = render partial: "shared/post", locals: { post: post }
         div.container.my-3.d-flex.justify-content-center

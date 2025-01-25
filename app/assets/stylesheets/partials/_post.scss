@@ -1,5 +1,33 @@
-.posts_index, .posts_create {
+.posts_index, .posts_create, .profiles_show, .posts_show {
+  .post_link {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
   .icon_image {
+    width: 40px;
     height: 40px;
+  }
+
+  .post_form {
+    margin: 56px 0 0 0;
+
+    textarea {
+      outline: none;
+      caret-color: white;
+      background-color: #333;
+      height: 50px;
+      resize: none;
+    }
+
+    .image_button {
+      display: none;
+    }
+
+    .post_button {
+      background-color: rgb(29 155 240);
+    }
   }
 }

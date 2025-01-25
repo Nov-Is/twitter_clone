@@ -79,7 +79,7 @@
       - when "comments"
         #tab3 data-tabs-target="tab"
           - @comments.each do |comment|
-            = render partial: "shared/post", locals: { post: comment.post }
+            = render partial: "shared/post", locals: { post: comment }
           .container.my-3.d-flex.justify-content-center
             = paginate @comments, param_name: profile_page("tab3"), params: { tab: "comments" }
       - when "favorite_posts"

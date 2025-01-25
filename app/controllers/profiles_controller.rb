@@ -7,8 +7,8 @@ class ProfilesController < ApplicationController
     @follower_count = @user.followers_count
     @my_posts = @user.posts.all.order(created_at: :desc).page(params[:my_posts])
     @favorite_posts = @user.favorites.all.order(created_at: :desc).page(params[:favorite_posts])
-    @reposts = @user.reposts.all.all.order(created_at: :desc).page(params[:reposts])
-    @comments = @user.comments.all.all.order(created_at: :desc).page(params[:comments])
+    @reposts = @user.reposts.all.order(created_at: :desc).page(params[:reposts])
+    @comments = @user.comments.all.order(created_at: :desc).page(params[:comments])
   end
 
   def edit

@@ -60,6 +60,7 @@ end
 3.times do |n|
   Comment.create!(
     user_id: n + 1,
+    comment: 'コメントです。',
     post_id: 2
   )
 end
