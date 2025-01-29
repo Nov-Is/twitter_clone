@@ -1,2 +1,56 @@
-h1 Posts#show
-p Find me in app/views/posts/show.html.slim
+.row
+  = render "shared/sidebar"
+  .col-9.border-start.border-secondary.px-0.right-section
+    .w-100
+      .container
+        = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+          i.fa-solid.fa-arrow-left.fa-fw.me-2
+        span.align-middle ポスト
+        .container.d-flex.userinfo
+          - if @post.user.icon_image.present?
+            = image_tag @post.user.icon_image.variant(resize_to_fit: [40, 40]), class: "rounded border border-dark"
+          - else
+            = image_tag "40x40.png", class: "rounded border border-dark"
+          .container
+            p.m-0.lh-sm = @post.user.name
+            p.m-0.lh-sm.opacity-50 @ #{@post.user.username}
+        .container.mt-4.border-bottom.border-secondary
+          p.m-1.fs-4.text-break = @post.content
+          - if @post.images.present?
+            div = image_tag @post.images[0].variant(resize_to_fit: [200, 200]), class: "rounded"
+          p.mt-3.opacity-50 = l @post.created_at, format: :long
+        .container.mt-2.pb-2.border-bottom.border-secondary
+          p.d-inline = @post.reposts.count
+          p.d-inline.me-3 件のリツイート
+          p.d-inline = @post.favorites.count
+          p.d-inline.me-3 件のいいね
+          p.d-inline = @post.comments.count
+          p.d-inline.me-3 件のコメント
+        .container.mt-1.mb-1.border-bottom.border-secondary
+          = link_to root_path, class: "btn text-light btn-custom me-5 position-relative" do
+            i.fa-regular.fa-comment
+          = link_to root_path, class: "btn text-light btn-custom mx-5 position-relative" do
+            i.fa-solid.fa-repeat
+          = link_to root_path, class: "btn text-light btn-custom mx-5 position-relative" do
+            i.fa-regular.fa-heart
+          = link_to root_path, class: "btn text-light btn-custom mx-5 position-relative" do
+            i.fa-regular.fa-bookmark
+        .container.mt-0.post_form.d-flex.border-bottom.border-secondary.align-items-center.userinfo
+          - if @post.user.icon_image.attached?
+            = image_tag @post.user.icon_image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3 icon_image"
+          - else
+            = image_tag '40x40.png', class: "rounded-circle me-3 icon_image"
+          = form_with model: [@post, @comment], url: post_comments_path(@post), method: :post, local: true do |f|  
+            .container.my-1.post_form.d-flex.py-2
+              = render "shared/error_messages", model: @post
+              .field
+                = f.text_area :comment, class: "form-control border-0 text-light lh-sm", size: "50x50", placeholder: "返信をポスト"
+              .container.col-1.mx-0.d-flex.align-items-center
+                .field
+                  = f.label :comment_images
+                    i.fa-regular.fa-image.text-white
+                    = f.file_field :comment_images, name: 'comment[comment_images][]', data: {index: 0}, class: "btn text-light btn-custom me-5 image_button"
+              .actions.ms-3
+                = f.submit "返信", class: "text-white fw-bold px-5 py-2 rounded-5 border-0 post_button"
+        - @comments.each do |post|
+          = render partial: "shared/post", locals: { post: post }

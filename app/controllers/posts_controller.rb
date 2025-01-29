@@ -6,7 +6,11 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
-  def show; end
+  def show
+    @post = Post.find(params[:id])
+    @comments = @post.comments.includes(:user).order(created_at: :desc)
+    @comment = current_user.comments.new
+  end
 
   def new; end
 

@@ -20,6 +20,8 @@ services:
       - db
     tty: true
     stdin_open: true
+    environment:
+      TZ: Asia/Tokyo
   js:
     image: rails_template:latest
     command: yarn build --watch
