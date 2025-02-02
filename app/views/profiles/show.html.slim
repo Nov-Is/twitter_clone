@@ -85,6 +85,6 @@
       - when "favorite_posts"
         #tab4 data-tabs-target="tab"
           - @favorite_posts.each do |favorite|
-            = render partial: "shared/post", locals: { post: favorite.post }
+            = render partial: "shared/post", locals: { post: favorite.favorable }
           .container.my-3.d-flex.justify-content-center
             = paginate @favorite_posts, param_name: profile_page("tab4"), params: { tab: "favorite_posts" }

@@ -66,8 +66,10 @@ end
 end
 
 3.times do |n|
+  user = User.find(n + 1)
+  post = Post.find(1)
   Favorite.create!(
-    user_id: n + 1,
-    post_id: 3
+    user_id: user.id,
+    favorable: post
   )
 end
