@@ -9,7 +9,7 @@ class Post < ApplicationRecord
 
   validates :content, length: { maximum: 140 }
 
-  def favorited?(user)
-    favorites.where(user_id: user.id).present?
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
   end
 end

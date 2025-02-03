@@ -31,7 +31,7 @@
             i.fa-regular.fa-comment
           = link_to root_path, class: "btn text-light btn-custom mx-5 position-relative" do
             i.fa-solid.fa-repeat
-          = favorited_check(@post, current_user)
+          = favorite_button_for(@post, current_user)
           = link_to root_path, class: "btn text-light btn-custom mx-5 position-relative" do
             i.fa-regular.fa-bookmark
         .container.mt-0.post_form.d-flex.border-bottom.border-secondary.align-items-center.userinfo
