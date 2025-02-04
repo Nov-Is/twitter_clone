@@ -28,7 +28,7 @@
       i.fa-regular.fa-comment
     = link_to root_path, class: "btn text-light btn-custom mx-5 position-relative" do
       i.fa-solid.fa-repeat
-    = link_to root_path, class: "btn text-light btn-custom mx-5 position-relative" do
-      i.fa-regular.fa-heart
+    = favorite_button_for(post, current_user)
+    = post.favorites.count
     = link_to root_path, class: "btn text-light btn-custom mx-5 position-relative" do
       i.fa-regular.fa-bookmark

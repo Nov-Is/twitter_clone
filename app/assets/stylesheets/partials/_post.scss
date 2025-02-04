@@ -30,4 +30,12 @@
       background-color: rgb(29 155 240);
     }
   }
+
+  .fa-heart::before {
+    content: "\f004";
+  }
+
+  .text-heart::before {
+    content:  "\f004";
+  }
 }
