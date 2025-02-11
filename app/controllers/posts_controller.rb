@@ -33,9 +33,8 @@ class PostsController < ApplicationController
   end
 
   def all_posts
-    @recommend_posts = Post.all.order(created_at: :desc).page(params[:recommend])
-    @follow_posts = Post.where(user_id: current_user.followees.pluck(:id)).order(created_at: :desc)\
-                        .page(params[:follow])
+    @recommend_posts = current_user.recommend_posts_with_reposts.page(params[:recommend])
+    @follow_posts = current_user.following_posts_with_reposts.page(params[:follow])
   end
 
   def post_save(post)

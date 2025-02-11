@@ -51,13 +51,6 @@ end
 end
 
 3.times do |n|
-  Repost.create!(
-    user_id: n + 1,
-    post_id: 1
-  )
-end
-
-3.times do |n|
   Comment.create!(
     user_id: n + 1,
     comment: 'コメントです。',
@@ -71,5 +64,9 @@ end
   Favorite.create!(
     user_id: user.id,
     favorable: post
+  )
+  Repost.create!(
+    user_id: user.id,
+    repostable: post
   )
 end

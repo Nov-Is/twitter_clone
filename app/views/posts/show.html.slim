@@ -20,17 +20,16 @@
             div = image_tag @post.images[0].variant(resize_to_fit: [200, 200]), class: "rounded"
           p.mt-3.opacity-50 = l @post.created_at, format: :long
         .container.mt-2.pb-2.border-bottom.border-secondary
-          p.d-inline = @post.reposts.count
+          p.d-inline = @post.repost_count
           p.d-inline.me-3 件のリツイート
-          p.d-inline = @post.favorites.count
+          p.d-inline = @post.favorite_count
           p.d-inline.me-3 件のいいね
           p.d-inline = @post.comments.count
           p.d-inline.me-3 件のコメント
         .container.mt-1.mb-1.border-bottom.border-secondary
           = link_to root_path, class: "btn text-light btn-custom me-5 position-relative" do
             i.fa-regular.fa-comment
-          = link_to root_path, class: "btn text-light btn-custom mx-5 position-relative" do
-            i.fa-solid.fa-repeat
+          = repost_button_for(@post, current_user)
           = favorite_button_for(@post, current_user)
           = link_to root_path, class: "btn text-light btn-custom mx-5 position-relative" do
             i.fa-regular.fa-bookmark

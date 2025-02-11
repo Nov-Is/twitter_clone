@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
   resources :posts, only: %i[show new create] do
     resource :favorites, only: %i[create destroy]
-    resources :reposts, only: %i[create destroy]
+    resource :reposts, only: %i[create destroy]
     resources :comments, only: %i[create destroy]
   end
   root 'posts#index'

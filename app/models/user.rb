@@ -46,4 +46,41 @@ class User < ApplicationRecord
   delegate :count, to: :followees, prefix: true
 
   delegate :count, to: :followers, prefix: true
+
+  def following_posts_with_reposts
+    following_posts_relation = Post.joins("LEFT OUTER JOIN reposts ON posts.id = reposts.repostable_id
+                                          AND (reposts.user_id = #{id} OR reposts.user_id
+                                          IN (SELECT followee_id FROM relationships WHERE followee_id = #{id}))")
+                                   .where('reposts.repostable_type = ? OR reposts.repostable_type IS NULL', 'Post')
+                                   .select('posts.*, reposts.user_id AS repost_user_id,
+                                          (SELECT name FROM users WHERE id = reposts.user_id) AS repost_user_name')
+    following_posts_relation.where(user_id: followings_with_userself.pluck(:id))
+                            .or(following_posts_relation.where(id:
+                                Repost.where(user_id: followings_with_userself.pluck(:id))
+                                .distinct.pluck(:repostable_id)))
+                            .where('NOT EXISTS(SELECT 1 FROM reposts sub
+                                    WHERE reposts.repostable_id = sub.repostable_id
+                                    AND reposts.created_at < sub.created_at)')
+                            .with_attached_images
+                            .preload(:user, :comments, :favorites, :reposts)
+                            .order(Arel.sql('CASE WHEN reposts.created_at IS NULL THEN posts.created_at
+                                            ELSE reposts.created_at END DESC'))
+  end
+
+  def followings_with_userself
+    User.where(id: followees.pluck(:id)).or(User.where(id:))
+  end
+
+  def recommend_posts_with_reposts
+    recommend_posts_relation = Post.joins('LEFT OUTER JOIN reposts on posts.id = reposts.repostable_id')
+                                   .where('reposts.repostable_type = ? OR reposts.repostable_type IS NULL', 'Post')
+                                   .select('posts.*, reposts.user_id AS repost_user_id,
+                                   (SELECT name FROM users WHERE id = reposts.user_id) AS repost_user_name')
+    recommend_posts_relation
+      .where('NOT EXISTS(SELECT 1 FROM reposts sub WHERE reposts.repostable_id = sub.repostable_id
+              AND reposts.created_at < sub.created_at)')
+      .with_attached_images
+      .preload(:user, :comments, :favorites, :reposts)
+      .order(Arel.sql('CASE WHEN reposts.created_at IS NULL THEN posts.created_at ELSE reposts.created_at END DESC'))
+  end
 end
