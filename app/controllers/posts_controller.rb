@@ -33,6 +33,7 @@ class PostsController < ApplicationController
   end
 
   def all_posts
+    # binding.pry
     @recommend_posts = current_user.recommend_posts_with_reposts.page(params[:recommend])
     @follow_posts = current_user.following_posts_with_reposts.page(params[:follow])
   end
