@@ -38,4 +38,13 @@
   .text-heart::before {
     content:  "\f004";
   }
+
+  .fa-repeat::before {
+    content: "\f363"
+  }
+
+  .post-repost {
+    color: gray;
+    font-size: smaller;
+  }
 }

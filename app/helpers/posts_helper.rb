@@ -24,4 +24,20 @@ module PostsHelper
       end
     end
   end
+
+  def repost_button_for(post, user)
+    if post.reposted_by?(user)
+      link_to post_reposts_path(post, repostable_type: post.model_name.name),
+              class: 'btn text-light btn-custom ms-5 me-1 position-relative',
+              data: { "turbo-method": :delete } do
+        tag.i('', class: 'fa-solid fa-repeat text-success')
+      end
+    else
+      link_to post_reposts_path(post, repostable_type: post.model_name.name),
+              class: 'btn text-light btn-custom ms-5 me-1 position-relative',
+              data: { "turbo-method": :post } do
+        tag.i('', class: 'fa-solid fa-repeat')
+      end
+    end
+  end
 end

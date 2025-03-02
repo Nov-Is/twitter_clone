@@ -46,4 +46,42 @@ class User < ApplicationRecord
   delegate :count, to: :followees, prefix: true
 
   delegate :count, to: :followers, prefix: true
+
+  def following_posts_with_reposts
+    following_posts_relation = Post.joins("LEFT OUTER JOIN reposts ON posts.id = reposts.repostable_id
+                                          AND (reposts.user_id = #{id} OR reposts.user_id
+                                          IN (SELECT followee_id FROM relationships WHERE followee_id = #{id}))")
+                                   .posts_only
+                                   .with_posts_and_related_info
+    followings_with_userself_ids = followings_with_userself.pluck(:id)
+    following_posts_relation
+      .where(user_id: followings_with_userself_ids)
+      .or(following_posts_relation.where(id:
+          Repost.where(user_id: followings_with_userself_ids)
+          .distinct.pluck(:repostable_id)))
+      .latest_reposts
+      .then { |relation| with_all_preloads(relation) }
+  end
+
+  def followings_with_userself
+    User.where(id: followees.ids + [id])
+  end
+
+  def recommend_posts_with_reposts
+    recommend_posts_relation = Post.joins('LEFT OUTER JOIN reposts on posts.id = reposts.repostable_id')
+                                   .posts_only
+                                   .with_posts_and_related_info
+    recommend_posts_relation
+      .latest_reposts
+      .then { |relation| with_all_preloads(relation) }
+  end
+
+  private
+
+  def with_all_preloads(relation)
+    relation.with_attached_images
+            .preload(:user, :comments, :favorites, :reposts)
+            .order(Arel.sql('CASE WHEN reposts.created_at IS NULL THEN posts.created_at
+                            ELSE reposts.created_at END DESC'))
+  end
 end

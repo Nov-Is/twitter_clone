@@ -73,7 +73,7 @@
       - when "reposts"
         #tab2 data-tabs-target="tab"
           - @reposts.each do |repost|
-            = render partial: "shared/post", locals: { post: repost.post }
+            = render partial: "shared/post", locals: { post: repost.repostable }
           .container.my-3.d-flex.justify-content-center
             = paginate @reposts, param_name: profile_page("tab2"), params: { tab: "reposts" }
       - when "comments"
