@@ -30,8 +30,8 @@
 end
 
 Relationship.create!(
-  followee_id: 1,
-  follower_id: 2
+  follower_id: 1, # フォローしている
+  followed_id: 2  # フォローされている
 )
 
 3.times do |n|

@@ -11,12 +11,13 @@ class User < ApplicationRecord
   validates :uid, uniqueness: { scope: :provider }, if: -> { uid.present? }
 
   # 自分がフォローしている人
-  has_many :relationships, foreign_key: :followee_id, dependent: :destroy, inverse_of: :relationship
-  has_many :followees, through: :relationships, source: :follower
+  has_many :relationships, class_name: 'Relationship', foreign_key: :follower_id, dependent: :destroy,
+                           inverse_of: :follower
+  has_many :followings, through: :relationships, source: :followed
   # 自分をフォローしている人
-  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: :follower_id, dependent: :destroy,
-                                      inverse_of: :relationship
-  has_many :followers, through: :reverse_of_relationships, source: :followee
+  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: :followed_id, dependent: :destroy,
+                                      inverse_of: :followed
+  has_many :followers, through: :reverse_of_relationships, source: :follower
 
   has_many :posts, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -43,14 +44,14 @@ class User < ApplicationRecord
     SecureRandom.uuid
   end
 
-  delegate :count, to: :followees, prefix: true
+  delegate :count, to: :followings, prefix: true
 
   delegate :count, to: :followers, prefix: true
 
   def following_posts_with_reposts
     following_posts_relation = Post.joins("LEFT OUTER JOIN reposts ON posts.id = reposts.repostable_id
                                           AND (reposts.user_id = #{id} OR reposts.user_id
-                                          IN (SELECT followee_id FROM relationships WHERE followee_id = #{id}))")
+                                          IN (SELECT followed_id FROM relationships WHERE followed_id = #{id}))")
                                    .posts_only
                                    .with_posts_and_related_info
     followings_with_userself_ids = followings_with_userself.pluck(:id)
@@ -64,7 +65,7 @@ class User < ApplicationRecord
   end
 
   def followings_with_userself
-    User.where(id: followees.ids + [id])
+    User.where(id: followings.ids + [id])
   end
 
   def recommend_posts_with_reposts
@@ -74,6 +75,18 @@ class User < ApplicationRecord
     recommend_posts_relation
       .latest_reposts
       .then { |relation| with_all_preloads(relation) }
+  end
+
+  def follow(user)
+    relationships.create(followed_id: user.id)
+  end
+
+  def unfollow(user)
+    relationships.find_by(followed_id: user.id).destroy
+  end
+
+  def following?(user)
+    followings.include?(user)
   end
 
   private
