@@ -2,8 +2,8 @@
 
 class ProfilesController < ApplicationController
   def show
-    @user = User.find(params[:id])
-    @followee_count = @user.followees_count
+    @user = User.find(params[:user_id])
+    @followed_count = @user.followings_count
     @follower_count = @user.followers_count
     @my_posts = @user.posts.all.order(created_at: :desc).page(params[:my_posts])
     @favorite_posts = @user.favorites.all.order(created_at: :desc).page(params[:favorite_posts])
@@ -12,16 +12,16 @@ class ProfilesController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
     check_current_user(@user)
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
     check_current_user(@user)
     if @user.update(user_params)
       flash[:success] = 'ユーザー情報を更新しました。'
-      redirect_to users_profile_path(current_user.id)
+      redirect_to user_profiles_path(current_user.id)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -38,6 +38,6 @@ class ProfilesController < ApplicationController
   def check_current_user(user)
     return if user == current_user
 
-    redirect_to users_profile_path
+    redirect_to user_profiles_path
   end
 end

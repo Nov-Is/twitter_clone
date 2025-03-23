@@ -4,7 +4,7 @@
     .w-100
       .container
         h1.fs-5 プロフィールを編集
-        = form_with model: @user, url:users_profile_path, local: true do |form|
+        = form_with model: @user, url:user_profiles_path, local: true do |form|
           .container.w-100.header_container
             - if @user.header_image.present?
               = image_tag @user.header_image, class: "w-100 h-100"

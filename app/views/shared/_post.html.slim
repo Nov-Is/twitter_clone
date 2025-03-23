@@ -12,20 +12,33 @@
     - elsif post.model_name.name == "Comment"
         = link_to post_path(post.post_id), class: "position-absolute post_link" do
     - if post.user.icon_image.attached?
-      = link_to users_profile_path(post.user_id), class: "icon_image position-relative" do
+      = link_to user_profiles_path(post.user_id), class: "icon_image position-relative" do
         = image_tag post.user.icon_image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3"
     - else
-      = link_to users_profile_path(post.user_id), class: "icon_image position-relative" do
+      = link_to user_profiles_path(post.user_id), class: "icon_image position-relative" do
         = image_tag '40x40.png', class: "rounded-circle me-3"
     .container
-      = post.user.name
-      |  @
-      = post.user.username
-      p.mb-1.text-break
+      .row.justify-content-between
+        .col-11
+          = post.user.name
+          |  @
+          = post.user.username
+        .col-1.dropdown
+          = button_tag type: "button", class: "btn btn-custom post_ellipsis", data: { "bs-toggle": "dropdown" }, aria: { expanded: "false" } do
+            i.fa-solid.fa-ellipsis.text-white
+          ul.dropdown-menu
+            - if current_user != post.user
+              - if current_user.following?(post.user)
+                li.dropdown-item
+                  = link_to "#{post.user.name}さんをフォロー解除", user_relationships_path(post.user_id), data: { "turbo-method": :delete } 
+              - else
+                li.dropdown-item
+                  = link_to "#{post.user.name}さんをフォロー", user_relationships_path(post.user_id), data: { "turbo-method": :post } 
+      .text-break
         - if post.model_name.name == "Post"
-          = post.content
+          = simple_format(post.content, class: "mb-0")
         - elsif post.model_name.name == "Comment"
-          = post.comment
+          = simple_format(post.comment, class: "mb-0")
       - if post.model_name.name == "Post"
         - if post.images.present?
           div = image_tag post.images[0].variant(resize_to_fit: [200, 200]), class: "rounded"
