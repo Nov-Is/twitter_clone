@@ -1,0 +1,13 @@
+.row
+  = render "shared/sidebar"
+  .col-9.border-start.border-secondary.px-0(style="margin: 0 0 0 auto;")
+    .w-100
+      .container
+        = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+          i.fa-solid.fa-arrow-left.fa-fw.me-2
+          | 戻る
+    .border-bottom.border-secondary
+      - @bookmark_posts.each do |post|
+        = render partial: "shared/post", locals: { post: post }
+    div.container.my-3.d-flex.justify-content-center
+      = paginate @bookmark_posts

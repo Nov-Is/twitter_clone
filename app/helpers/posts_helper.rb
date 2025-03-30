@@ -40,4 +40,20 @@ module PostsHelper
       end
     end
   end
+
+  def bookmark_button_for(post, user)
+    if post.bookmark_by?(user)
+      link_to user_bookmark_path(user.id, bookmarkable_type: post.model_name.name, post_id: post.id),
+              class: 'btn text-light btn-custom ms-5 me-1 position-relative',
+              data: { "turbo-method": :delete } do
+        tag.i('', class: 'fa-solid fa-bookmark text-primary')
+      end
+    else
+      link_to user_bookmarks_path(user, bookmarkable_type: post.model_name.name, post_id: post.id),
+              class: 'btn text-light btn-custom ms-5 me-1 position-relative',
+              data: { "turbo-method": :post } do
+        tag.i('', class: 'fa-regular fa-bookmark')
+      end
+    end
+  end
 end

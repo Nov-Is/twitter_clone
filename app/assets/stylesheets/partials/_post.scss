@@ -1,4 +1,4 @@
-.posts_index, .posts_create, .profiles_show, .posts_show {
+.posts_index, .posts_create, .profiles_show, .posts_show, .bookmarks_index {
   .post_link {
     top: 0;
     right: 0;
@@ -45,6 +45,10 @@
 
   .fa-repeat::before {
     content: "\f363"
+  }
+
+  .fa-bookmark::before {
+    content: "\f02e"
   }
 
   .post-repost {

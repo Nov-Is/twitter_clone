@@ -51,5 +51,5 @@
       = post.repost_count
       = favorite_button_for(post, current_user)
       = post.favorite_count
-      = link_to root_path, class: "btn text-light btn-custom mx-5 position-relative" do
-        i.fa-regular.fa-bookmark
+      = bookmark_button_for(post, current_user)
+      = post.bookmark_count

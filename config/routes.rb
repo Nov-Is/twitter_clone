@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :users do
     resource :profiles, only: %i[show edit update]
     resource :relationships, only: %i[create destroy]
+    resources :bookmarks, only: %i[index create destroy], param: :post_id
   end
   resources :posts, only: %i[show new create] do
     resource :favorites, only: %i[create destroy]
