@@ -24,6 +24,8 @@ class User < ApplicationRecord
   has_many :reposts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
+  has_many :entries, dependent: :destroy
+  has_many :messages, dependent: :destroy
   has_one_attached :icon_image
   has_one_attached :header_image
 

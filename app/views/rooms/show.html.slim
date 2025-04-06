@@ -1,0 +1,33 @@
+.row
+  = render "shared/sidebar"
+  .col-9.border-start.border-secondary.px-0(style="margin: 0 0 0 auto;")
+    .w-100
+      .container
+        = link_to rooms_path, class: "btn btn-lg text-light btn-custom" do
+          i.fa-solid.fa-arrow-left.fa-fw.me-2
+        = "#{@another_entry.user.name}さんとのメッセージ"
+      .row.container.d-flex.justify-content-center
+        .col-11
+          .chat-body.p-3.flex-grow-1.overflow-auto
+            - @messages.each do |m|
+              - if m.user_id == current_user.id
+                .d-flex.justify-content-end.mb-3
+                  .mymessage.p-2.rounded.d-inline-block
+                    = m.message
+              - else
+                .d-flex.justify-content-start.mb-3
+                  .d-flex.text-black
+                    = link_to user_profiles_path(m.user_id), class: "icon_image position-relative" do
+                      - if m.user.icon_image.attached?
+                        = image_tag m.user.icon_image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3"
+                      - else
+                        = image_tag '40x40.png', class: "rounded-circle me-3"
+                    .rounded.bg-light.d-inline-block.p-2.ms-1
+                      = m.message
+            .p-3
+              = form_with model: @message do |f|
+                .d-flex
+                  = f.text_field :message, class: "form-control flex-grow-1"
+                  = f.number_field :room_id, value: @room.id, hidden: true
+                  = f.submit "送信", class: "btn message_submit ms-2"
+            
