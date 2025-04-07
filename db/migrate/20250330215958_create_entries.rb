@@ -8,5 +8,6 @@ class CreateEntries < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :entries, %i[user_id room_id], unique: true
   end
 end
