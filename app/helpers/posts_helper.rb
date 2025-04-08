@@ -56,4 +56,20 @@ module PostsHelper
       end
     end
   end
+
+  def message_button_for(user, current_user)
+    return if user.id == current_user.id
+
+    room = Room.joins(:entries)
+               .where(entries: { user_id: [current_user.id, user.id] })
+               .group(:room_id)
+               .having('COUNT(DISTINCT user_id) = 2')
+               .pick(:room_id)
+
+    if room
+      link_to 'メッセージを再開', room_path(room)
+    else
+      link_to 'メッセージを送る', rooms_path(user_id: user.id), data: { "turbo-method": :post }
+    end
+  end
 end

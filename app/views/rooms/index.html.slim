@@ -1,0 +1,24 @@
+.row
+  = render "shared/sidebar"
+  .col-9.border-start.border-secondary.px-0(style="margin: 0 0 0 auto;")
+    .w-100
+      .container
+        = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+          i.fa-solid.fa-arrow-left.fa-fw.me-2
+          | 戻る
+      - @another_entry.each do |entry|
+        .container.border.border-secondary.position-relative.w-75.row.ms-2.p-2.py-3
+          .d-flex
+            = link_to room_path(entry.room), class: "position-absolute chat_link" do
+            = link_to user_profiles_path(entry.user_id), class: "icon_image position-relative" do
+            - if entry.user.icon_image.attached?
+              = image_tag entry.user.icon_image.variant(resize_to_fit: [40, 40]), class: "rounded-circle me-3"
+            - else
+              = image_tag '40x40.png', class: "rounded-circle me-3"
+            .container
+              .justify-content-between
+                = entry.user.name
+                |  @
+                = entry.user.username
+              .text-break
+                = simple_format(entry.room.messages.last&.message, class: "mb-0")

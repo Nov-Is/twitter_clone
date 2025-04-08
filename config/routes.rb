@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     resource :reposts, only: %i[create destroy]
     resources :comments, only: %i[create destroy]
   end
+  resources :messages, only: %i[create]
+  resources :rooms, only: %i[index show create]
   resources :tasks
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

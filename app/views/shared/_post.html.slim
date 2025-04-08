@@ -33,7 +33,9 @@
                   = link_to "#{post.user.name}さんをフォロー解除", user_relationships_path(post.user_id), data: { "turbo-method": :delete } 
               - else
                 li.dropdown-item
-                  = link_to "#{post.user.name}さんをフォロー", user_relationships_path(post.user_id), data: { "turbo-method": :post } 
+                  = link_to "#{post.user.name}さんをフォロー", user_relationships_path(post.user_id), data: { "turbo-method": :post }
+            li.dropdown-item
+              = message_button_for(post.user, current_user)
       .text-break
         - if post.model_name.name == "Post"
           = simple_format(post.content, class: "mb-0")
