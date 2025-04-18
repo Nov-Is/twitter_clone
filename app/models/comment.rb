@@ -9,6 +9,7 @@ class Comment < ApplicationRecord
   has_many :reposts, as: :repostable, dependent: :destroy
   has_many :bookmarks, as: :bookmarkable, dependent: :destroy
   has_many_attached :comment_images
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   validates :comment, length: { maximum: 140 }
 end

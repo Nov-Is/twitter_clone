@@ -4,6 +4,8 @@ class FavoritesController < ApplicationController
   def create
     @favorite = current_user.favorites.build(favorite_params)
     @favorite.save
+    @favorite.favorable.create_notification_favorite(current_user, @favorite)
+    NotificationMailer.favorite_notification(current_user, @favorite.favorable).deliver_now
     redirect_to request.referer
   end
 

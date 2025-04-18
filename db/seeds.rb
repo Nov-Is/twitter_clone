@@ -69,4 +69,13 @@ end
     user_id: user.id,
     repostable: post
   )
+
+  other_user = n + 1 == 2 ? User.find(3) : User.where.not(id: n + 1).first
+  Notification.create(
+    visitor_id: user.id,
+    visited_id: other_user.id,
+    action: 'favorite',
+    notifiable_type: 'Post',
+    notifiable_id: other_user.posts.first.id
+  )
 end

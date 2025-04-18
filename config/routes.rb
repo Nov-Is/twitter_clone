@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
   resources :messages, only: %i[create]
   resources :rooms, only: %i[index show create]
+  resources :notifications, only: %i[index]
   resources :tasks
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

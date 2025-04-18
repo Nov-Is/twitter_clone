@@ -1,0 +1,15 @@
+.row
+  = render "shared/sidebar"
+  .col-9.border-start.border-secondary.px-0(style="margin: 0 0 0 auto;")
+    .w-100
+      .container
+        = link_to root_path, class: "btn btn-lg text-light btn-custom" do
+          i.fa-solid.fa-arrow-left.fa-fw.me-2
+          | 戻る
+        - notifications = @notifications.where.not(visitor_id: current_user.id)
+        - if notifications.exists?
+          = render partial: "shared/notification", collection: notifications
+          = paginate notifications
+        - else
+          p
+            | 通知はありません
