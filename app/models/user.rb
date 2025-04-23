@@ -99,23 +99,6 @@ class User < ApplicationRecord
     followings.include?(user)
   end
 
-  def create_notification_follow(current_user)
-    relationship = Relationship.find_by(follower_id: current_user.id, followed_id: id)
-    followed = Notification.where(['visitor_id = ? and visited_id = ? and
-                                    notifiable_type = ? and notifiable_id = ? and action = ?',
-                                   current_user.id, id, Relationship, relationship.id, 'follow'])
-    return if followed.present?
-
-    notification = current_user.active_notifications.new(
-      notifiable_id: relationship.id,
-      notifiable_type: Relationship,
-      visited_id: id,
-      action: 'follow'
-    )
-
-    notification.save if notification.valid?
-  end
-
   private
 
   def with_all_preloads(relation)

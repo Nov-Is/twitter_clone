@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build(comment_params)
     @comment.user = current_user
     @comment.save
-    @post.create_notification_comment(current_user, @comment)
+    @comment.create_comment_notification(current_user)
     NotificationMailer.comment_notification(current_user, @post, @comment).deliver_now
     redirect_to request.referer
   end

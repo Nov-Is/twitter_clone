@@ -101,7 +101,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_04_09_230508) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
-    t.index ["visited_id", "read_at"], name: "index_notifications_on_visited_id_and_read_at", unique: true
   end
 
   create_table "posts", force: :cascade do |t|
