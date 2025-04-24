@@ -9,6 +9,7 @@ class Post < ApplicationRecord
   has_many :reposts, as: :repostable, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :bookmarks, as: :bookmarkable, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy
 
   validates :content, length: { maximum: 140 }
 

@@ -19,6 +19,13 @@ class User < ApplicationRecord
                                       inverse_of: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
 
+  # active_notifications：自分からの通知
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy,
+                                  inverse_of: :visitor
+  # passive_notifications：相手からの通知
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy,
+                                   inverse_of: :visited
+
   has_many :posts, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :reposts, dependent: :destroy

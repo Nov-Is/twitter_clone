@@ -4,6 +4,8 @@ class RepostsController < ApplicationController
   def create
     @repost = current_user.reposts.build(repost_params)
     @repost.save
+    @repost.create_repost_notification(current_user)
+    NotificationMailer.repost_notification(current_user, @repost.repostable).deliver_now
     redirect_to request.referer
   end
 
