@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :lockable, :trackable, :confirmable, :timeoutable, :omniauthable, omniauth_providers: %i[github]
 
-  validates :phone_number, :birth_date, presence: true
+  validates :phone_number, :birth_date, :email, presence: true
   validates :uid, uniqueness: { scope: :provider }, if: -> { uid.present? }
 
   # 自分がフォローしている人
