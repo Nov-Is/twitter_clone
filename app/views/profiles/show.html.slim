@@ -12,7 +12,7 @@
         - else
           = image_tag "800x300.png", class: "w-100 h-100", style: "object-fit: cover;"
         - if @user.icon_image.present?
-          = image_tag @user.icon_image.variant(resize_to_fit: [100, 100]), class: "rounded-circle border border-dark", style: "position: absolute; top:150px; left:20px;"
+          = image_tag @user.icon_image.variant(resize_to_fill: [100, 100]), class: "rounded-circle border border-dark", style: "position: absolute; top:150px; left:20px;"
         - else
           = image_tag "40x40.png", class: "rounded-circle border border-dark", style: "position: absolute; top:150px; left:20px; width: 100px; height: 100px;"
       .container.w-100
