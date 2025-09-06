@@ -26,7 +26,7 @@
         .container.mt-3
           p.fs-2.lh-1.my-0
             - if @user.name.nil?
-              | name
+              | user_#{@user.id}
             - else 
               = @user.name
           p.fw-lighter.text-muted.my-0

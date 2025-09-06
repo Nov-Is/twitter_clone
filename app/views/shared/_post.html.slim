@@ -20,9 +20,9 @@
     .container
       .row.justify-content-between
         .col-11
-          = post.user.name
+          = post.user.name || "user_#{post.user.id}"
           |  @
-          = post.user.username
+          = post.user.username || "user_#{post.user.id}"
         .col-1.dropdown
           = button_tag type: "button", class: "btn btn-custom post_ellipsis", data: { "bs-toggle": "dropdown" }, aria: { expanded: "false" } do
             i.fa-solid.fa-ellipsis.text-white
