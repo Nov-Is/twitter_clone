@@ -39,4 +39,4 @@
         = image_tag current_user.icon_image.variant(resize_to_fill: [30, 30]), class: "rounded-circle me-3"
       - else
         = image_tag '40x40.png', size: "30x30", class: "rounded-circle me-3"
-      = current_user.name
+      = current_user.name || "user_#{current_user.id}"
