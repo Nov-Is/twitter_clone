@@ -42,6 +42,8 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
       user.phone_number = '00000000000'
       user.birth_date = '2000-01-01'
+      user.name = SecureRandom.alphanumeric(6)
+      user.username = SecureRandom.alphanumeric(6)
 
       if user.persisted? || auth.provider == 'github'
         user.skip_confirmation! if auth.provider == 'github'
